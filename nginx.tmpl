@@ -124,6 +124,27 @@ server {
 		auth_basic_user_file	{{ (printf "/etc/nginx/htpasswd/%s" $host) }};
 		{{ end }}
 	}
+
+  location /media/ {
+    root /content;
+
+    gzip_static off;
+    expires max;
+    add_header Cache-Control public;
+  }
+
+  location ~* ^/assets/ {
+    root /usr/src/app/public;
+
+    gzip_static off;
+    expires max;
+    add_header Cache-Control public;
+
+    # add_header Last-Modified "";
+    # add_header ETag "";
+    # break;
+  }
+
 }
 
 server {
