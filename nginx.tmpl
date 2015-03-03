@@ -118,6 +118,8 @@ server {
 	server_name {{ $host }};
 
 	location / {
+    root /usr/src/app/public;
+    
 		proxy_pass http://{{ $host }};
 		{{ if (exists (printf "/etc/nginx/htpasswd/%s" $host)) }}
 		auth_basic	"Restricted {{ $host }}";
@@ -144,6 +146,9 @@ server {
     # add_header ETag "";
     # break;
   }
+
+
+
 
 }
 
